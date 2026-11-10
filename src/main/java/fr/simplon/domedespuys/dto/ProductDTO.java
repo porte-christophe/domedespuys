@@ -1,8 +1,5 @@
 package fr.simplon.domedespuys.dto;
 
-import fr.simplon.domedespuys.entities.Brand;
-import fr.simplon.domedespuys.entities.Image;
-
 import java.util.List;
 
 public class ProductDTO {
@@ -10,5 +7,5 @@ public class ProductDTO {
     public String description;
     public Integer price;
     public Long brandId;
-    public String image;
+    public List<ImageDTO> images;
 }
