@@ -8,15 +8,25 @@ import fr.simplon.domedespuys.service.interfaces.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements IUserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     @Override
     public User create(UserPostDTO dto) {
-        return null;
+        User user = new User();
+        user.setEmail(dto.email);
+        user.setPassword(dto.password);
+        user.setFirstname(dto.firstname);
+        user.setLastname(dto.lastname);
+        user.setCreatedAt(LocalDateTime.now());
+        userRepository.saveAndFlush(user);
+        return user;
     }
+
 
     @Override
     public boolean delete(String id) {
