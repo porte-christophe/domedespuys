@@ -8,4 +8,5 @@ public interface IUserService extends
         ICreate<User, UserPostDTO>,
         IUpdate<User, UserPutDTO>,
         IDelete,
-        IGetItem<User>{}
+        IGetItem<User>
+{}

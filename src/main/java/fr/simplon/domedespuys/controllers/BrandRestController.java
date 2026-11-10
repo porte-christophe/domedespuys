@@ -2,7 +2,7 @@ package fr.simplon.domedespuys.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import fr.simplon.domedespuys.entities.Brand;
-import fr.simplon.domedespuys.repository.BrandRepository;
+import fr.simplon.domedespuys.service.interfaces.IBrandService;
 import fr.simplon.domedespuys.view.BrandView;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,23 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/brand")
 public class BrandRestController {
 
-    private BrandRepository brandRepository;
+    private final IBrandService brandService;
 
     @GetMapping
     @JsonView({BrandView.BrandListView.class})
     public List<Brand> getBrand(){
-        return brandRepository.findAll();
+        return brandService.getCollection();
     }
 
 
-    @GetMapping("/{slug}")
+    @GetMapping("/{id}")
     @JsonView({BrandView.BrandDetailView.class})
-    public Optional<Brand> getBrandBySlug(@PathVariable String slug) {return brandRepository.findBySlug(slug);}
+    public Brand getBrandById(@PathVariable String id) {return brandService.getById(id);}
 }

@@ -4,9 +4,13 @@ import fr.simplon.domedespuys.dto.PurchasePostDTO;
 import fr.simplon.domedespuys.dto.PurchasePutDTO;
 import fr.simplon.domedespuys.entities.Purchase;
 import fr.simplon.domedespuys.service.interfaces.IPurchaseService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@AllArgsConstructor
 public class PurchaseServiceImpl implements IPurchaseService {
     @Override
     public List<Purchase> getCollection() {
