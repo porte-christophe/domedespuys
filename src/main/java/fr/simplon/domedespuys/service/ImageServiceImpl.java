@@ -8,6 +8,9 @@ import fr.simplon.domedespuys.service.interfaces.IImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class ImageServiceImpl implements IImageService {
@@ -15,7 +18,14 @@ public class ImageServiceImpl implements IImageService {
     private ImageRepository imageRepository;
     @Override
     public boolean delete(String id) {
-        return false;
+        try {
+            Optional<Image> optionalImage = imageRepository.findById(Long.parseLong(id));
+            Image image = optionalImage.orElseThrow();
+            imageRepository.delete(image);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
     }
 
 
