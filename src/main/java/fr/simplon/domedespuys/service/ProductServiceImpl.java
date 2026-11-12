@@ -4,8 +4,8 @@ import fr.simplon.domedespuys.dto.ImageDTO;
 import fr.simplon.domedespuys.dto.ProductDTO;
 import fr.simplon.domedespuys.entities.Brand;
 import fr.simplon.domedespuys.entities.Product;
-import fr.simplon.domedespuys.repository.BrandRepository;
 import fr.simplon.domedespuys.repository.ProductRepository;
+import fr.simplon.domedespuys.service.interfaces.IBrandService;
 import fr.simplon.domedespuys.service.interfaces.IImageService;
 import fr.simplon.domedespuys.service.interfaces.IProductService;
 import lombok.AllArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -20,7 +21,7 @@ import java.util.Optional;
 public class ProductServiceImpl implements IProductService {
 
     private ProductRepository productRepository;
-    private BrandRepository brandRepository;
+    private IBrandService brandService;
 
     private IImageService imageService;
     @Override
@@ -50,11 +51,15 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product update(String id, ProductDTO dto) {
-        Optional<Product> optionalProduct = productRepository.findById(Long.parseLong(id));
-        Product product = optionalProduct.orElseThrow();
-        dtoToObject(dto,product);
-        productRepository.saveAndFlush(product);
-        return product;
+        try {
+            Optional<Product> optionalProduct = productRepository.findById(Long.parseLong(id));
+            Product product = optionalProduct.orElseThrow();
+            dtoToObject(dto,product);
+            productRepository.saveAndFlush(product);
+            return product;
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -62,8 +67,7 @@ public class ProductServiceImpl implements IProductService {
         product.setLabel(dto.label);
         product.setDescription(dto.description);
         product.setPrice(dto.price);
-        Optional<Brand> optionalBrand = brandRepository.findById(Long.parseLong(dto.brandId));
-        Brand brand = optionalBrand.orElseThrow();
+        Brand brand = brandService.getById(dto.brandId);
         product.setBrand(brand);
     }
 }
