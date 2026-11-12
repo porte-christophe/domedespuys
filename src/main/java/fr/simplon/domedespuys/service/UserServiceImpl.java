@@ -2,6 +2,7 @@ package fr.simplon.domedespuys.service;
 
 import fr.simplon.domedespuys.dto.UserPostDTO;
 import fr.simplon.domedespuys.dto.UserPutDTO;
+import fr.simplon.domedespuys.entities.Address;
 import fr.simplon.domedespuys.entities.User;
 import fr.simplon.domedespuys.repository.UserRepository;
 import fr.simplon.domedespuys.service.interfaces.IUserService;
@@ -9,12 +10,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements IUserService {
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
     @Override
     public User create(UserPostDTO dto) {
         User user = new User();
@@ -30,7 +34,17 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean delete(String id) {
-        return false;
+        Optional<User> optionalUser = userRepository.findById(Long.parseLong(id));
+        User user = optionalUser.orElseThrow();
+
+        user.setEmail("toto@toto.de");
+        user.setFirstname("firstname");
+        user.setLastname("lastname");
+        user.setPhone("0000000000");
+
+        List<Address> addresses = new ArrayList<>();
+        user.setAddresses(addresses);
+        return true;
     }
 
     @Override
@@ -42,6 +56,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User update(String id, UserPutDTO dto) {
-        return null;
+        Optional<User> optionalUser = userRepository.findById(Long.parseLong(id));
+        User user = optionalUser.orElseThrow();
+
+        user.setFirstname(dto.firstname);
+        user.setLastname(dto.lastname);
+        user.setPhone(dto.phone);
+
+        userRepository.saveAndFlush(user);
+
+        return user;
     }
 }
