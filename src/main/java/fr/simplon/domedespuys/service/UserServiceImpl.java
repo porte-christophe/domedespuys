@@ -34,8 +34,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean delete(String id) {
-        Optional<User> optionalUser = userRepository.findById(Long.parseLong(id));
-        User user = optionalUser.orElseThrow();
+        User user = getById(id);
 
         user.setEmail("toto@toto.de");
         user.setFirstname("firstname");
@@ -56,8 +55,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User update(String id, UserPutDTO dto) {
-        Optional<User> optionalUser = userRepository.findById(Long.parseLong(id));
-        User user = optionalUser.orElseThrow();
+        User user = getById(id);
 
         user.setFirstname(dto.firstname);
         user.setLastname(dto.lastname);

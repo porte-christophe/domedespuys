@@ -52,8 +52,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public Product update(String id, ProductDTO dto) {
         try {
-            Optional<Product> optionalProduct = productRepository.findById(Long.parseLong(id));
-            Product product = optionalProduct.orElseThrow();
+            Product product = getById(id);
             dtoToObject(dto,product);
             productRepository.saveAndFlush(product);
             return product;
