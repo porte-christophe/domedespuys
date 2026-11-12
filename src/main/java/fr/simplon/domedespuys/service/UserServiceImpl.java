@@ -35,15 +35,18 @@ public class UserServiceImpl implements IUserService {
     @Override
     public boolean delete(String id) {
         User user = getById(id);
+        if (user != null){
+            user.setEmail("toto@toto.de");
+            user.setFirstname("firstname");
+            user.setLastname("lastname");
+            user.setPhone("0000000000");
 
-        user.setEmail("toto@toto.de");
-        user.setFirstname("firstname");
-        user.setLastname("lastname");
-        user.setPhone("0000000000");
-
-        List<Address> addresses = new ArrayList<>();
-        user.setAddresses(addresses);
-        return true;
+            List<Address> addresses = new ArrayList<>();
+            user.setAddresses(addresses);
+            userRepository.saveAndFlush(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
