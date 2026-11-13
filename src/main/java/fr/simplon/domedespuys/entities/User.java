@@ -22,6 +22,7 @@ public class User {
     private Long id;
 
     @Column(length = 100 ,nullable = false)
+    @JsonView(UserView.Email.class)
     private String email;
 
     @Column(nullable = false)
@@ -36,14 +37,17 @@ public class User {
     private String lastname;
 
     @Column(length = 50)
+    @JsonView(UserView.Phone.class)
     private String phone;
 
     @Column(length = 50, nullable = false)
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")
+    @JsonView(UserView.Addresses.class)
     private List<Address> addresses = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonView(UserView.Purchases.class)
     private List<Purchase> purchases;
 }

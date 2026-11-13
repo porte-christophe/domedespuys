@@ -3,7 +3,6 @@ package fr.simplon.domedespuys.view;
 public class UserView {
     public interface Id{};
     public interface Email{};
-    public interface Password{}
     public interface Firstname{};
     public interface Lastname{};
     public interface Phone{};
@@ -12,5 +11,7 @@ public class UserView {
     public interface Purchases{};
 
 
-    public interface UserListView extends Id,Firstname,Lastname{};
+    public interface UserListView extends Id,Email,Firstname,Lastname,Phone{};
+    public interface UserDetailView extends UserListView,CreatedAt,Addresses, AddressView.AddressDetailView {};
+
 }

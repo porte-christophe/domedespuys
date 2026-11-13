@@ -17,6 +17,7 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({AddressView.Id.class})
     private Long id;
 
     @Column(length = 100 ,nullable = false)

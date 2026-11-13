@@ -17,7 +17,7 @@ public class UserRestController {
     private final IUserService userService;
 
     @GetMapping("/{id}")
-    @JsonView({UserView.UserListView.class})
+    @JsonView({UserView.UserDetailView.class})
     public User getUserById(@PathVariable String id) {return userService.getById(id);}
 
     @PostMapping
