@@ -1,7 +1,7 @@
 package fr.simplon.domedespuys.dto;
 
 public class PurchaseProductDTO {
-    Integer qty;
-    Integer price;
-    String idProduct;
+    public Integer qty;
+    public Integer price;
+    public String idProduct;
 }
