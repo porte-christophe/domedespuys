@@ -33,7 +33,6 @@ public class ProductServiceImpl implements IProductService {
     public Product create(ProductDTO dto) {
         Product product = new Product();
         dtoToObject(dto,product);
-        product.setCreatedAt(LocalDateTime.now());
         productRepository.saveAndFlush(product);
         for (ImageDTO imageDTO : dto.images){
             imageService.create(imageDTO,product);

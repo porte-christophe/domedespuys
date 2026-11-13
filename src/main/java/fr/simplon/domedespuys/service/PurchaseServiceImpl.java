@@ -37,7 +37,6 @@ public class PurchaseServiceImpl implements IPurchaseService {
         Purchase purchase = new Purchase();
         Random random = new Random();
         purchase.setNumber(String.valueOf((random.nextInt(0, 20000))));
-        purchase.setCreatedAt(LocalDateTime.now());
         purchase.setStatus(EnumPurchaseStatus.PENDING.getValue());
         User user = userService.getById("5");
         purchase.setUser(user);

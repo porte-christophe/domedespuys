@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import fr.simplon.domedespuys.view.AddressView;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -53,6 +54,7 @@ public class Address {
     private String lastname;
 
     @Column(length = 50, nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @ManyToOne(optional = false)

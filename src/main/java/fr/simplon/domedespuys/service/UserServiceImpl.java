@@ -26,7 +26,6 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(dto.password);
         user.setFirstname(dto.firstname);
         user.setLastname(dto.lastname);
-        user.setCreatedAt(LocalDateTime.now());
         userRepository.saveAndFlush(user);
         return user;
     }

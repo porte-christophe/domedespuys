@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import fr.simplon.domedespuys.view.ProductView;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.awt.*;
 import java.time.LocalDateTime;
@@ -36,6 +37,7 @@ public class Product {
     private String slug;
 
     @Column(length = 50, nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "product")

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import fr.simplon.domedespuys.view.UserView;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class User {
     private String phone;
 
     @Column(length = 50, nullable = false)
+    @JsonView(UserView.CreatedAt.class)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")
